@@ -1,0 +1,242 @@
+﻿@{
+    //****************** Khởi động Dữ liệu Nguồn-Nội bộ **********
+    var Ung_dung = XL_UNG_DUNG.Khoi_dong_Ung_dung();
+    var Khach_Tham_quan = Ung_dung.Khoi_dong_Khach_Tham_quan();
+
+    //******************* Khai báo và Khởi động giá trị đầu cho Biến  ********************
+    var Ma_so_Chuc_nang = Request["Th_Ma_so_Chuc_nang"]; // Biến Nhập
+
+    var Chuoi_HTML_Ket_qua = "";
+
+    if(Ma_so_Chuc_nang == "DAT_CHO")
+    {
+        var Chuoi_Ho_ten = Request["Th_Ho_ten"].Trim();
+        var Chuoi_Email = Request["Th_Email"].Trim(); ;
+        var Chuoi_Dien_thoai = Request["Th_Dien_thoai"].Trim();
+        var Chuoi_Ngay_den = Request["Th_Ngay_Den"];
+        var Chuoi_Gio_den = Request["Th_Gio_den"];
+        var Chuoi_So_Nguoi_lon = Request["Th_So_Nguoi_lon"];
+        var Chuoi_So_Tre_em = Request["Th_So_Tre_em"];
+        var Chuoi_Ghi_chu = Request["Th_Ghi_chu"].Trim();
+
+        if (Chuoi_So_Nguoi_lon == "0")
+        {
+            Chuoi_HTML_Ket_qua = "<div class='alert alert-warning'>Vui lòng chọn số người lớn đến</div>";
+        }
+        else if(Chuoi_Gio_den == "0")
+        {
+            Chuoi_HTML_Ket_qua = "<div class='alert alert-warning'>Vui lòng chọn giờ đến</div>";
+        }
+        else
+        {
+            Khach_Tham_quan.Phieu_Dat_Ban.Ho_ten = Chuoi_Ho_ten;
+            Khach_Tham_quan.Phieu_Dat_Ban.Email = Chuoi_Email;
+            Khach_Tham_quan.Phieu_Dat_Ban.Dien_thoai = Chuoi_Dien_thoai;
+            Khach_Tham_quan.Phieu_Dat_Ban.Ngay_dat = DateTime.Now;
+
+            var Ngay_den = DateTime.ParseExact(Chuoi_Ngay_den, "MM/dd/yyyy", null);
+
+            var Tach_Chuoi_Gio_den = Chuoi_Gio_den.Split(':');
+            var Gio = double.Parse(Tach_Chuoi_Gio_den[0]);
+            var Phut = double.Parse(Tach_Chuoi_Gio_den[1]);
+            Ngay_den = Ngay_den.AddHours(Gio);
+            Ngay_den = Ngay_den.AddMinutes(Phut);
+
+            Khach_Tham_quan.Phieu_Dat_Ban.Ngay_den = Ngay_den;
+            Khach_Tham_quan.Phieu_Dat_Ban.So_Nguoi_lon = int.Parse(Chuoi_So_Nguoi_lon);
+            Khach_Tham_quan.Phieu_Dat_Ban.So_Tre_em = int.Parse(Chuoi_So_Tre_em);
+            Khach_Tham_quan.Phieu_Dat_Ban.Ghi_chu = Chuoi_Ghi_chu;
+            Chuoi_HTML_Ket_qua = Ung_dung.Dat_cho();
+        }
+
+
+
+
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <!-- Font awesome -->
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <!-- Slick slider -->
+    <link rel="stylesheet" type="text/css" href="css/slick.css">
+    <!-- Date Picker -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker.css">
+    <!-- Theme color -->
+    <link id="switcher" href="css/red-theme.css" rel="stylesheet">
+    <!-- Main style sheet -->
+    <link href="style.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <!-- Prata for body  -->
+    <link href='https://fonts.googleapis.com/css?family=Prata' rel='stylesheet' type='text/css'>
+    <!-- Tangerine for small title -->
+    <link href='https://fonts.googleapis.com/css?family=Tangerine' rel='stylesheet' type='text/css'>
+    <!-- Open Sans for title -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+        <!-- Start Reservation section -->
+        <section id="mu-reservation">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mu-reservation-area">
+                            <div class="mu-title">
+                                <span class="mu-subtitle">NinjaCoder</span>
+                                <h2>Đặt Chỗ</h2>
+                            </div>
+                            <div class="mu-reservation-content">
+                                <p>Xin vui lòng điền đầy đủ thông tin cần thiết. Bộ phận booking sẽ liên lạc với quý khách để trao đổi thực đơn. Xin chân thành cám ơn.</p>
+                                <div class="col-md-6">
+                                    <div class="mu-reservation-left">
+                                        @Html.Raw(Chuoi_HTML_Ket_qua)
+                                        <form class="mu-reservation-form" method="post">
+                                            <input name='Th_Ma_so_Chuc_nang' type='hidden' value='DAT_CHO' />
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <input id="Th_Ho_ten" name="Th_Ho_ten" type="text" class="form-control" placeholder="Họ tên" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <input id="Th_Email" name="Th_Email" type="email" class="form-control" placeholder="Email" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <input id="Th_Dien_thoai" name="Th_Dien_thoai" type="text" class="form-control" placeholder="Điện thoại" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <select id="Th_So_Nguoi_lon" name="Th_So_Nguoi_lon" class="form-control">
+                                                            <option value="0">Số lượng người lớn?</option>
+                                                            <option value="1">1 Người</option>
+                                                            <option value="2">2 Người</option>
+                                                            <option value="3">3 Người</option>
+                                                            <option value="4">4 Người</option>
+                                                            <option value="5">5 Người</option>
+                                                            <option value="6">6 Người</option>
+                                                            <option value="7">7 Người</option>
+                                                            <option value="8">8 Người</option>
+                                                            <option value="9">9 Người</option>
+                                                            <option value="10">10 Người</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <select id="Th_So_Tre_em" name="Th_So_Tre_em" class="form-control">
+                                                            <option value="0">Số lượng trẻ em?</option>
+                                                            <option value="1">1 Người</option>
+                                                            <option value="2">2 Người</option>
+                                                            <option value="3">3 Người</option>
+                                                            <option value="4">4 Người</option>
+                                                            <option value="5">5 Người</option>
+                                                            <option value="6">6 Người</option>
+                                                            <option value="7">7 Người</option>
+                                                            <option value="8">8 Người</option>
+                                                            <option value="9">9 Người</option>
+                                                            <option value="10">10 Người</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div  class="form-group">
+                                                        <input name="Th_Ngay_den" type="text" class="form-control" id="datepicker" placeholder="Date" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <select id="Th_Gio_den" name="Th_Gio_den" class="form-control">
+                                                            <option value="0">Giờ đến?</option>
+                                                            <option value="16:00">16:00</option>
+                                                            <option value="16:30">16:30</option>
+                                                            <option value="17:00">17:00</option>
+                                                            <option value="17:30">17:30</option>
+                                                            <option value="18:00">18:00</option>
+                                                            <option value="18:30">18:30</option>
+                                                            <option value="19:00">19:00</option>
+                                                            <option value="19:30">19:30</option>
+                                                            <option value="20:00">20:00</option>
+                                                            <option value="20:30">20:30</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <textarea id="Th_Ghi_chu" name="Th_Ghi_chu" class="form-control" cols="30" rows="10" placeholder="Your Message"></textarea>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="mu-readmore-btn">Make Reservation</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 col-md-offset-1">
+                                    <div class="mu-reservation-right">
+                                        <div class="mu-opening-hour">
+                                            <h2>Opening Hours</h2>
+                                            <ul class="list-unstyled">
+                                                <li>
+                                                    <p>Monday &amp; Tuesday</p>
+                                                    <p>16:00 - Midnight</p>
+                                                </li>
+                                                <li>
+                                                    <p>Wednesday &amp; Thursday</p>
+                                                    <p>17:00 - Midnight</p>
+                                                </li>
+                                                <li>
+                                                    <p>Friday &amp; Saturday</p>
+                                                    <p>16:00 - Midnight</p>
+                                                </li>
+                                                <li>
+                                                    <p>Sunday</p>
+                                                    <p>12:00 - Midnight</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Reservation section -->
+    <!-- jQuery library -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.js"></script>
+    <!-- Slick slider -->
+    <script type="text/javascript" src="js/slick.js"></script>
+    <!-- Gallery Lightbox -->
+    <script type="text/javascript" src="js/jquery.magnific-popup.min.js"></script>
+    <!-- Date Picker -->
+    <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+
+    <!-- Custom js -->
+    <script src="js/custom.js"></script>
+</body>
+</html>

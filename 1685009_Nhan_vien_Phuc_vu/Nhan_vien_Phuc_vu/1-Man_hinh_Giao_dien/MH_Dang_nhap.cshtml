@@ -1,0 +1,69 @@
+﻿@{
+    //****************** Khởi động Dữ liệu Nguồn-Nội bộ **********
+    var Ung_dung = XL_UNG_DUNG.Khoi_dong_Ung_dung();
+
+    //******************* Khai báo và Khởi động giá trị đầu cho Biến  ********************
+    var Ma_so_Chuc_nang = Request["Th_Ma_so_Chuc_nang"]; // Biến Nhập
+    if (Ma_so_Chuc_nang == null) { Ma_so_Chuc_nang = "KHOI_DONG"; };
+
+    var Chuoi_HTML_Thong_bao = "";
+    if (Ma_so_Chuc_nang == "KHOI_DONG")
+    {
+        Chuoi_HTML_Thong_bao = "<div class='alert alert-info'>Xin vui lòng Nhập Tên đăng nhập và Mật khẩu</div>";
+    }
+    else if (Ma_so_Chuc_nang == "DANG_NHAP")
+    {
+        var Ten_Dang_nhap = Request["Th_Ten_Dang_nhap"];
+        var Mat_khau = Request["Th_Mat_khau"];
+        var Nguoi_dung = Ung_dung.Dang_nhap(Ten_Dang_nhap, Mat_khau);
+
+        if (Nguoi_dung != null)
+        {
+            Response.Redirect("MH_Chinh.cshtml");
+        }
+        else
+        {
+            Chuoi_HTML_Thong_bao = "<div  class='alert alert-danger' >Đăng nhập không hợp lệ"
+           + "<br />Xin vui lòng Nhập <b>lại</b> Tên đăng nhập và Mật khẩu" + "</div>";
+        }
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="DD_Dang_nhap.css?v=@DateTime.Now.Ticks" type="text/css" />
+    <title></title>
+</head>
+
+<body>
+    <div class="container">
+        <h4 class="TIEU_DE">HỆ THỐNG QUẢN LÝ NHÀ HÀNG</h4>
+        <h6 class="TIEU_DE">Phân hệ dành cho <strong>Nhân viên phục vụ</strong></h6>
+
+        <div class="container">
+            <div class="card card-container">
+                <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+                <br />
+                <form id="HE_THONG" name="HE_THONG" action="MH_Dang_nhap.cshtml" method="post" class="form-signin">
+                    <input name="Th_Ma_so_Chuc_nang" type="hidden" value="DANG_NHAP" />    
+                    <input type="text" id="Th_Ten_Dang_nhap" name="Th_Ten_Dang_nhap" class="form-control" placeholder="Tên đăng nhập" required autofocus>
+                    <input type="password" id="Th_Mat_khau" name="Th_Mat_khau" class="form-control" placeholder="Mật khẩu" required>
+
+                    <div id="Th_Thong_bao" class="THONG_BAO">
+                        @Html.Raw(Chuoi_HTML_Thong_bao)
+                    </div>
+
+                    <button id="Th_Dong_y" class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Đăng nhập</button>
+                </form><!-- /form -->
+            </div><!-- /card-container -->
+        </div><!-- /container -->
+    </div>
+</body>
+</html>

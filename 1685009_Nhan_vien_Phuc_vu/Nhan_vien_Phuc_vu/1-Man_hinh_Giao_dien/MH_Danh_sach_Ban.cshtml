@@ -1,0 +1,85 @@
+﻿@{
+    //****************** Khởi động Dữ liệu Nguồn-Nội bộ **********
+    Session["Chuc_nang_Chon"] = Path.GetFileName(Request.Path).Replace(".cshtml", "");
+
+    //****************** Khởi động Dữ liệu Nguồn-Nội bộ **********
+    var Ung_dung = XL_UNG_DUNG.Khoi_dong_Ung_dung();
+    var Nguoi_dung = Ung_dung.Nguoi_dung_Dang_nhap();
+
+    //******************* Khai báo và Khởi động giá trị đầu cho Biến  ********************
+    var Ma_so_Chuc_nang = Request["Th_Ma_so_Chuc_nang"]; // Biến Nhập
+    if (Ma_so_Chuc_nang == null) { Ma_so_Chuc_nang = "KHOI_DONG"; };
+
+    var Chuoi_HTML_Ket_qua = "";
+    if (Ma_so_Chuc_nang == "KHOI_DONG")
+    {
+        Chuoi_HTML_Ket_qua = Ung_dung.Khoi_dong_Man_hinh_Danh_sach_Ban();
+    }
+    else if (Ma_so_Chuc_nang == "TRA_CUU")
+    {
+        var Chuoi_Tra_cuu = Request["Th_Chuoi_Tra_cuu"];
+        Chuoi_HTML_Ket_qua = Ung_dung.Tra_cuu_Ban(Chuoi_Tra_cuu);
+    }
+    else if (Ma_so_Chuc_nang == "BAT_DAU_PHUC_VU")
+    {
+        var Ma_so_Ban = Request["Th_Ma_so_Ban"];
+        Chuoi_HTML_Ket_qua = Ung_dung.Bat_dau_Phuc_vu(Ma_so_Ban);
+    }
+    else if (Ma_so_Chuc_nang == "DAT_MON")
+    {
+        var Ma_so_Ban = Request["Th_Ma_so_Ban"];
+        Session["Ma_so_Ban_dat"] = Ma_so_Ban;
+
+        HttpContext.Current.Response.Redirect("MH_Danh_sach_Mon_an.cshtml");
+        HttpContext.Current.Response.End();
+    }
+    else if (Ma_so_Chuc_nang == "PHUC_VU_MON_AN")
+    {
+        var Ma_so_Goi_mon = Request["Th_Ma_so_Goi_mon"];
+        Chuoi_HTML_Ket_qua = Ung_dung.Phuc_vu_Mon_an(Ma_so_Goi_mon);
+    }
+    else if (Ma_so_Chuc_nang == "HUY_GOI_MON")
+    {
+        var Ma_so_Goi_mon = Request["Th_Ma_so_Goi_mon"];
+        Chuoi_HTML_Ket_qua = Ung_dung.Huy_Goi_mon(Ma_so_Goi_mon);
+    }
+    else if (Ma_so_Chuc_nang == "THANH_TOAN")
+    {
+        var Ma_so_Ban = Request["Th_Ma_so_Ban"];
+        Chuoi_HTML_Ket_qua = Ung_dung.Thanh_toan(Ma_so_Ban);
+    }
+    else if (Ma_so_Chuc_nang == "GOP_Y_VA_THANH_TOAN")
+    {
+        var Ma_so_Ban = Request["Th_Ma_so_Ban"];
+
+        var Y_kien = new XL_Y_KIEN() {
+            Danh_gia_Phuc_vu = Request["Th_Danh_gia_Phuc_vu"],
+            Danh_gia_Mon_an = Request["Th_Danh_gia_Mon_an"],
+            Noi_dung = Request["Th_Noi_dung_Gop_y"]
+        };
+
+        Chuoi_HTML_Ket_qua = Ung_dung.Thanh_toan(Ma_so_Ban, Y_kien);
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="DD_Xem_Danh_sach.css?v=@DateTime.Now.Ticks" type="text/css" />
+    <title></title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="DANH_SACH">
+            @Html.Raw(Chuoi_HTML_Ket_qua)
+        </div>
+    </div>
+</body>
+</html>

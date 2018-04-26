@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="DD_Loi.css?v=@DateTime.Now.Ticks" type="text/css" />
+    <title></title>
+</head>
+<body>
+    @{
+        var Du_lieu = new XL_DU_LIEU();
+        var Ma_so_Loi = (string)Session["Ma_so_Loi"];
+        var Chuoi_Bao_loi = new HtmlString("");
+
+        if (Ma_so_Loi == "CHUA_DANG_NHAP")
+        {
+            Chuoi_Bao_loi = new HtmlString("Người dùng chưa đăng nhập!");
+        }
+    }
+
+    <div class="container-fluid">
+        <div class="text-center">
+            <div>@Chuoi_Bao_loi</div>
+
+            <br/>
+
+            <img src="@Du_lieu.Dia_chi_Media/ERROR.png" class="img-fluid" />
+        </div>
+    </div>
+</body>
+</html>

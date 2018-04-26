@@ -1,0 +1,116 @@
+﻿@{
+    var Ung_dung = XL_UNG_DUNG.Khoi_dong_Ung_dung();
+    var Nguoi_dung = Ung_dung.Nguoi_dung_Dang_nhap();
+    var Chuoi_Ten_Nguoi_dung = Nguoi_dung.Ho_ten;
+    var Chuoi_Duong_dan_Hinh = Ung_dung.Dia_chi_Media + "/" + Nguoi_dung.Ma_so + ".png";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="DD_Chinh.css?v=@DateTime.Now.Ticks" type="text/css" />
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row TIEU_DE">
+            <div class="col-md-2 text-center LOGO"><img src="@Ung_dung.Dia_chi_Media/LOGO.png" /></div>
+            <div class="col-md-5 TEN_HE_THONG">
+                HỆ THỐNG QUẢN LÝ NHÀ HÀNG<br />
+                <span class="GHI_CHU">
+                    Đồ án môn TKPMNC: <strong>Quản lý nhà hàng</strong><br />
+                </span>
+            </div>
+            <div class="col-md-5 NGUOI_DUNG">
+                Kính chào @Html.Raw(Chuoi_Ten_Nguoi_dung)
+                <img src="@Chuoi_Duong_dan_Hinh" class="AVATAR" />
+                [<a href="MH_Dang_xuat.cshtml">Đăng xuất</a>]
+            </div>
+        </div>
+
+        <div class="row DANH_SACH_CHUC_NANG">
+            <table class="table-responsive">
+                <thead>
+                    <tr id="Th_Danh_sach_Chuc_nang">
+                        <td id="MH_Thong_ke" class="CHUC_NANG">
+                            Thống kê
+                        </td>
+                        <td id="MH_Danh_sach_Phieu_Dat_ban" class="CHUC_NANG">
+                            Phiếu đặt bàn
+                        </td>
+                        <td id="MH_Danh_sach_Y_kien" class="CHUC_NANG">
+                            Ý kiến Khách hàng
+                        </td>
+                        <td id="MH_Danh_sach_Ban" class="CHUC_NANG">
+                            Trạng thái bàn
+                        </td>
+                        <td id="MH_Danh_sach_Mon_an" class="CHUC_NANG">
+                            Cập nhật giá bán
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div class="row">
+            <iframe class="KHUNG_CHUC_NANG" id='Khung_Chuc_nang'></iframe>
+        </div>
+    </div>
+
+    <script>
+        MH_Thong_ke.onclick = () => {
+            Khung_Chuc_nang.src = "MH_Thong_ke.cshtml";
+            Danh_dau_Chon_Chuc_nang(MH_Thong_ke);
+        }
+
+        MH_Danh_sach_Phieu_Dat_ban.onclick = () => {
+            Khung_Chuc_nang.src = "MH_Danh_sach_Phieu_Dat_ban.cshtml";
+            Danh_dau_Chon_Chuc_nang(MH_Danh_sach_Phieu_Dat_ban);
+        }
+        
+        MH_Danh_sach_Y_kien.onclick = () => {
+            Khung_Chuc_nang.src = "MH_Danh_sach_Y_kien.cshtml";
+            Danh_dau_Chon_Chuc_nang(MH_Danh_sach_Y_kien);
+        }
+
+        MH_Danh_sach_Ban.onclick = () => {
+            Khung_Chuc_nang.src = "MH_Danh_sach_Ban.cshtml";
+            Danh_dau_Chon_Chuc_nang(MH_Danh_sach_Ban);
+        }
+
+        MH_Danh_sach_Mon_an.onclick = () => {
+            Khung_Chuc_nang.src = "MH_Danh_sach_Mon_an.cshtml";
+            Danh_dau_Chon_Chuc_nang(MH_Danh_sach_Mon_an);
+        }
+
+        function Chon_Chuc_nang(Chuc_nang_Chon) {
+            for (var i = 0; i < Th_Danh_sach_Chuc_nang.childNodes.length; i++) {
+                if (Th_Danh_sach_Chuc_nang.childNodes[i].id == Chuc_nang_Chon) {
+                    Th_Danh_sach_Chuc_nang.childNodes[i].click();
+                    return;
+                }
+            }
+        }
+
+        function Danh_dau_Chon_Chuc_nang(Th_Chuc_nang_Chon) {
+            for (var i = 0; i < Th_Danh_sach_Chuc_nang.childNodes.length; i++)
+                Th_Danh_sach_Chuc_nang.childNodes[i].className = "CHUC_NANG";
+            Th_Chuc_nang_Chon.className += " CHON";
+        }
+    </script>
+
+    @if (Session["Chuc_nang_Chon"] == null)
+    {
+        <script>MH_Thong_ke.click();</script>
+    }
+    else
+    {
+        <script>Chon_Chuc_nang('@Session["Chuc_nang_Chon"]');</script>
+    }
+</body>
+</html>

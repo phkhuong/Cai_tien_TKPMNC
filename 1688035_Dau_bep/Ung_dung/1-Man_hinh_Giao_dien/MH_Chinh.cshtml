@@ -1,0 +1,101 @@
+﻿@{
+    //****************** Khởi động Dữ liệu Nguồn-Nội bộ **********
+    var Ung_dung = XL_UNG_DUNG.Khoi_dong_Ung_dung();
+    //var Nguoi_dung = (XL_DAU_BEP)Du_lieu.Nguoi_dung_Dang_nhap();
+    //var Chuoi_Ten_Nguoi_dung = Nguoi_dung.Ho_ten;
+
+    var Nguoi_dung = (XL_NGUOI_DUNG)Session["Nguoi_dung_Dang_Nhap"];
+    if (Nguoi_dung == null) { Response.Write("Người dùng không hợp lệ"); Response.End(); }
+    var Chuoi_Duong_dan_Hinh = Ung_dung.Dia_chi_Media + "/" + Nguoi_dung.Ma_so + ".png";
+    //******************* Khai báo và Khởi động giá trị đầu cho Biến  ********************
+    var Ma_so_Chuc_nang = Request["Th_Ma_so_Chuc_nang"]; // Biến Nhập
+    if (Ma_so_Chuc_nang == null) { Ma_so_Chuc_nang = "KHOI_DONG"; };
+
+    var Chuoi_HTML_Ket_qua = "";
+    if (Ma_so_Chuc_nang == "KHOI_DONG")
+    {
+        Chuoi_HTML_Ket_qua = Ung_dung.Khoi_dong_Man_hinh_chinh();
+    }
+    else if (Ma_so_Chuc_nang == "TRA_CUU")
+    {
+        var Chuoi_Tra_cuu = Request["Th_Chuoi_Tra_cuu"];
+        Chuoi_HTML_Ket_qua = Ung_dung.Tra_cuu(Chuoi_Tra_cuu);
+    }
+    else if (Ma_so_Chuc_nang == "DANG_XUAT")
+    {
+        HttpContext.Current.Session["Nguoi_dung"] = null;
+        Response.Redirect("MH_Dang_nhap.cshtml");
+    }
+    else if (Ma_so_Chuc_nang == "CHECK_DA_NAU")
+    {
+        var Ma_so_Mon_an = Request["Th_Ma_so_Mon_an"];
+        var Ma_so_Goi_mon = Request["Th_Ma_so_Goi_mon"];
+        var Ma_so_Ban = Request["Th_Ma_so_Ban"];
+        Chuoi_HTML_Ket_qua = Ung_dung.Check_Da_Nau(Ma_so_Ban, Ma_so_Mon_an, Ma_so_Goi_mon);
+        Response.Redirect("MH_Chinh.cshtml");
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="DD_Chinh.css?v=@DateTime.Now.Ticks" type="text/css" />
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row TIEU_DE">
+            <div class="col-md-2 col-7 text-center LOGO"><img src="@Ung_dung.Dia_chi_Media/LOGO.png" /></div>
+            <div class="col-md-5 col-5 flex-md-last NGUOI_DUNG">
+                @Html.Raw(Nguoi_dung.Ho_ten)
+            <img src="@Chuoi_Duong_dan_Hinh" class="AVATAR" />
+            <form id="DANG_XUAT" name="DANG_XUAT" action="MH_Chinh.cshtml" method="post">
+                <input name="Th_Ma_so_Chuc_nang" type="hidden" value="DANG_XUAT" />
+                <button type="submit" class="btn btn-secondary btn-sm">Đăng xuất</button>
+            </form>
+                @*[<a href="MH_Dang_xuat.cshtml">Đăng xuất</a>]*@
+            </div>
+            <div class="col-md-5 col-12 TEN_HE_THONG">
+                HỆ THỐNG QUẢN LÝ NHÀ HÀNG<br />
+                <span class="GHI_CHU">
+                    Phân hệ: <strong>Đầu Bếp</strong><br />
+                </span>
+            </div>
+            
+        </div>
+
+        <div class="TIM_KIEM">
+            <form id="TRA_CUU" name="TRA_CUU" action="MH_Chinh.cshtml" method="post">
+                <input name="Th_Ma_so_Chuc_nang" type="hidden" value="TRA_CUU" />
+                <input type="text" id="Th_Chuoi_Tra_cuu" name="Th_Chuoi_Tra_cuu" class="form-control" placeholder="Tìm theo Mã số bàn, Tên bàn" />
+            </form>
+        </div>
+
+        <div class="row DANH_SACH_CHUC_NANG">
+            <table class="table-responsive">
+                <thead>
+                    <tr id="Th_Danh_sach_Chuc_nang">
+                        <td id="MH_Danh_sach_Goi_mon" class="CHUC_NANG">
+                            Danh sách Gọi Món
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <form id="CHECK_DA_NAU" name="CHECK_DA_NAU" method="post">
+            <input name="Th_Ma_so_Chuc_nang" type="hidden" value="CHECK_DA_NAU" />
+            <input id="Th_Ma_so_Ban" name="Th_Ma_so_Ban" type="hidden" />
+            <input id="Th_Ma_so_Mon_an" name="Th_Ma_so_Mon_an" type="hidden"/>
+            <input id="Th_Ma_so_Goi_mon" name="Th_Ma_so_Goi_mon" type="hidden" />
+            <div class="DANH_SACH">
+                @Html.Raw(Chuoi_HTML_Ket_qua)
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+﻿@{
+    var Ung_dung = XL_UNG_DUNG.Khoi_dong_Ung_dung();
+
+    var Ma_so_Xu_ly = "";
+    var Chuoi_Kq = "";
+
+    if (Request["Ma_so_Xu_ly"] != null)
+    {
+        var Bo_doc = new StreamReader(Request.InputStream);
+        var Chuoi_Nhan = Bo_doc.ReadToEnd();
+        Ma_so_Xu_ly = Request["Ma_so_Xu_ly"];
+
+        if (Ma_so_Xu_ly == "CAP_NHAT_GIA_BAN")
+        {
+            var Ma_so_Mon_an = Request["Ma_so_Mon_an"];
+            var Gia_moi = Request["Gia_moi"];
+            Chuoi_Kq = Ung_dung.Cap_nhat_Gia_ban(Ma_so_Mon_an, Gia_moi);
+        }
+    }
+
+    Response.ContentType = "text/json";
+    Response.Write(Chuoi_Kq);
+}

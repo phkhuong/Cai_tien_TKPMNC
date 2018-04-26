@@ -1,0 +1,32 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 1.2em;
+    font-family: Arial;
+    margin-top: 10px;
+}
+
+.THONG_BAO {
+    font-size: 1.4em;
+    color: red;
+    margin-left: 3vw;
+}
+
+.NHAN {
+    font-weight: bold;
+    padding-right: 20px;
+}
+
+.THONG_TIN span {
+    font-weight: bold;
+}
+
+.QUAN_TRONG {
+    color: red;
+}
+
+.btn {
+    cursor: pointer;
+}

@@ -1,0 +1,74 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 0.9em;
+    font-family: Arial;
+    margin-top: 10px;
+}
+
+a {
+    color: #008CBA;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+.QUAN_TRONG {
+    color: red;
+}
+
+.TIEU_DE_DANH_SACH {
+    background: #4CAF50;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.DANH_SACH {
+    color: black;
+    margin-top: 5px;
+}
+
+.DANH_SACH .KHUNG {
+    margin-bottom: 20px;
+}
+
+.THONG_TIN {
+    border: 1px solid silver;
+    padding: 10px;
+}
+
+.THONG_TIN div {
+    text-align: center;
+}
+
+.THONG_TIN span {
+    font-weight: bold;
+}
+
+.THONG_TIN:hover {
+    background: #f1f1f1;
+}
+
+.MOT_DONG {
+    white-space: nowrap;
+}
+
+.KHUNG_HINH {
+    text-align: center;
+}
+
+.HINH {
+    max-height: 150px;
+}
+
+.THANH_CONG {
+    background: #9dfe71;
+}
+
+.NGUY_HIEM {
+    background: #ffa689;
+}

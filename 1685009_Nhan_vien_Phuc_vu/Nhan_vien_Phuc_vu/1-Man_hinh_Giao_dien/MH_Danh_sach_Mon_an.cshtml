@@ -1,0 +1,68 @@
+﻿@{
+    //****************** Khởi động Dữ liệu Nguồn-Nội bộ **********
+    Session["Chuc_nang_Chon"] = Path.GetFileName(Request.Path).Replace(".cshtml", "");
+
+    //****************** Khởi động Dữ liệu Nguồn-Nội bộ **********
+    var Ung_dung = XL_UNG_DUNG.Khoi_dong_Ung_dung();
+    var Nguoi_dung = Ung_dung.Nguoi_dung_Dang_nhap();
+
+    //******************* Khai báo và Khởi động giá trị đầu cho Biến  ********************
+    var Ma_so_Chuc_nang = Request["Th_Ma_so_Chuc_nang"]; // Biến Nhập
+    if (Ma_so_Chuc_nang == null) { Ma_so_Chuc_nang = "KHOI_DONG"; };
+
+    var Chuoi_HTML_Ket_qua = "";
+    if (Ma_so_Chuc_nang == "KHOI_DONG")
+    {
+        Chuoi_HTML_Ket_qua = Ung_dung.Khoi_dong_Man_hinh_Danh_sach_Mon_an();
+    }
+    else if (Ma_so_Chuc_nang == "TRA_CUU")
+    {
+        var Chuoi_Tra_cuu = Request["Th_Chuoi_Tra_cuu"];
+        Chuoi_HTML_Ket_qua = Ung_dung.Tra_cuu_Mon_an(Chuoi_Tra_cuu);
+    }
+    else if (Ma_so_Chuc_nang == "CHON_LOAI_MON_AN")
+    {
+        var Ma_so_Loai_Mon_an = Request["Th_Ma_so_Loai_Mon_an"];
+        Chuoi_HTML_Ket_qua = Ung_dung.Chon_Loai_Mon_an(Ma_so_Loai_Mon_an);
+    }
+    else if (Ma_so_Chuc_nang == "CHON_MON_AN")
+    {
+        var Ma_so_Mon_an = Request["Th_Ma_so_Mon_an"];
+        Chuoi_HTML_Ket_qua = Ung_dung.Chon_Mon_an(Ma_so_Mon_an);
+    }
+    else if (Ma_so_Chuc_nang == "GIAM_SO_LUONG_MON_AN")
+    {
+        var Ma_so_Mon_an = Request["Th_Ma_so_Mon_an"];
+        Chuoi_HTML_Ket_qua = Ung_dung.Giam_So_luong_Mon_an(Ma_so_Mon_an);
+    }
+    else if (Ma_so_Chuc_nang == "DAT_MON")
+    {
+        if(Session["Ma_so_Ban_dat"] != null)
+        {
+            var Ma_so_Ban_Dat = (string)Session["Ma_so_Ban_dat"];
+            Ung_dung.Dat_mon(Ma_so_Ban_Dat);
+        }
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="DD_Xem_Danh_sach.css?v=@DateTime.Now.Ticks" type="text/css" />
+    <title></title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="DANH_SACH">
+            @Html.Raw(Chuoi_HTML_Ket_qua)
+        </div>
+    </div>
+</body>
+</html>
