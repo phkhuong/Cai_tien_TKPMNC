@@ -1,0 +1,33 @@
+{
+  "Ho_ten": "Lệnh Hồ X",
+  "Ma_so": "NV_7",
+  "Ten_Dang_nhap": "DB_2",
+  "Mat_khau": "DB_2",
+  "Nhom_Nguoi_dung": {
+    "Ten": "Đầu bếp",
+    "Ma_so": "DAU_BEP",
+    "Dia_chi_Dang_nhap": "http://localhost:51433/1-Man_hinh_Giao_dien/MH_Dang_nhap.cshtml"
+  },
+  "Danh_sach_Loai_Mon_an": [
+    {
+      "Ma_so": "MON_COM",
+      "Ten": "MÓN CƠM"
+    },
+    {
+      "Ma_so": "MON_MIEN",
+      "Ten": "MÓN MIẾN"
+    },
+    {
+      "Ma_so": "MON_MI",
+      "Ten": "MÓN MÌ"
+    },
+    {
+      "Ma_so": "MON_GA",
+      "Ten": "MÓN GÀ"
+    },
+    {
+      "Ma_so": "MON_CA",
+      "Ten": "MÓN CÁ"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "Ho_ten": "Lê Nguyễn T",
+  "Ma_so": "NV_4",
+  "Ten_Dang_nhap": "PV_4",
+  "Mat_khau": "PV_4",
+  "Nhom_Nguoi_dung": {
+    "Ten": "Nhân viên phục vụ",
+    "Ma_so": "NHAN_VIEN_PHUC_VU",
+    "Dia_chi_Dang_nhap": "http://localhost:52057/1-Man_hinh_Giao_dien/MH_Dang_nhap.cshtml"
+  },
+  "Danh_sach_Ban": [
+    {
+      "Ten": "Bàn số 7",
+      "Ma_so": "BAN_07",
+      "Trang_thai": "TRONG",
+      "Danh_sach_Phieu_Tinh_tien": [],
+      "Danh_sach_Y_kien": []
+    },
+    {
+      "Ten": "Bàn số 8",
+      "Ma_so": "BAN_08",
+      "Trang_thai": "TRONG",
+      "Danh_sach_Phieu_Tinh_tien": [],
+      "Danh_sach_Y_kien": []
+    }
+  ]
+}

@@ -103,7 +103,6 @@
     <Content Include="1-Man_hinh_Giao_dien\MH_Danh_sach_Y_kien.cshtml" />
     <Content Include="1-Man_hinh_Giao_dien\MH_Thong_ke.cshtml" />
     <Content Include="1-Man_hinh_Giao_dien\MH_Danh_sach_Phieu_Dat_ban.cshtml" />
-    <Content Include="1-Dich_vu_Giao_tiep\DV_Chinh.cshtml" />
     <None Include="packages.config" />
     <Content Include="ViewPage1.cshtml" />
     <None Include="Web.Debug.config">

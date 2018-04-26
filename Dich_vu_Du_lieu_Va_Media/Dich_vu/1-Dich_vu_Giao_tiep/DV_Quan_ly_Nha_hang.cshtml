@@ -1,0 +1,34 @@
+﻿@{
+    var Du_lieu = XL_DU_LIEU.Khoi_dong_Du_lieu_Ung_dung();
+
+    var Ma_so_Xu_ly = "";
+    var Chuoi_Kq = "";
+
+    if (Request["Ma_so_Xu_ly"] != null)
+    {
+        var Bo_doc = new StreamReader(Request.InputStream);
+        var Chuoi_Nhan = Bo_doc.ReadToEnd();
+        Ma_so_Xu_ly = Request["Ma_so_Xu_ly"];
+
+        if (Ma_so_Xu_ly == "KHOI_DONG_DU_LIEU_QUAN_LY_NHA_HANG")
+        {
+            var Kq = Du_lieu.Tao_Du_lieu_cua_Quan_ly_Nha_hang();
+            Chuoi_Kq = Json.Encode(Kq);
+        }
+        else if (Ma_so_Xu_ly == "CAP_NHAT_GIA_BAN")
+        {
+            var Ma_so_Mon_an = Request["Ma_so_Mon_an"];
+            var Gia_moi = Request["Gia_moi"];
+            Chuoi_Kq = Du_lieu.Cap_nhat_Gia_ban(Ma_so_Mon_an, Gia_moi);
+        }
+        else if (Ma_so_Xu_ly == "CAP_NHAT_TRANG_THAI_PHIEU_DAT_BAN")
+        {
+            var Ma_so_Phieu_Dat_ban = Request["Ma_so_Phieu_Dat_ban"];
+            var Trang_thai = Request["Trang_thai"];
+            Chuoi_Kq = Du_lieu.Cap_nhat_Trang_thai_Phieu_Dat_ban(Ma_so_Phieu_Dat_ban, Trang_thai);
+        }
+    }
+
+    Response.ContentType = "text/json";
+    Response.Write(Chuoi_Kq);
+}

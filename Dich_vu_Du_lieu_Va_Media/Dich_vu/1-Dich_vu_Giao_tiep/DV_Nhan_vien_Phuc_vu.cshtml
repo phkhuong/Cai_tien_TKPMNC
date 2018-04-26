@@ -1,0 +1,77 @@
+﻿@using Newtonsoft.Json;
+@{
+    var Du_lieu = XL_DU_LIEU.Khoi_dong_Du_lieu_Ung_dung();
+
+    var Ma_so_Xu_ly = "";
+    var Chuoi_Kq = "";
+
+    if (Request["Ma_so_Xu_ly"] != null)
+    {
+        var Bo_doc = new StreamReader(Request.InputStream);
+        var Chuoi_Nhan = Bo_doc.ReadToEnd();
+        Ma_so_Xu_ly = Request["Ma_so_Xu_ly"];
+
+        if (Ma_so_Xu_ly == "KHOI_DONG_DU_LIEU_NHAN_VIEN_PHUC_VU")
+        {
+            var Kq = Du_lieu.Tao_Du_lieu_cua_Nhan_vien_Phuc_vu();
+            Chuoi_Kq = Json.Encode(Kq);
+        }
+        else if (Ma_so_Xu_ly == "GHI_MON_AN")
+        {
+            XL_MON_AN Mon_an = Json.Decode<XL_MON_AN>(Chuoi_Nhan);
+            var Kq = Du_lieu.Ghi_Mon_an(Mon_an);
+            Chuoi_Kq = Kq;
+        }
+        else if (Ma_so_Xu_ly == "GHI_BAN")
+        {
+            XL_BAN Ban = Json.Decode<XL_BAN>(Chuoi_Nhan);
+            var Kq = Du_lieu.Ghi_Ban(Ban);
+            Chuoi_Kq = Kq;
+        }
+        else if (Ma_so_Xu_ly == "GHI_PHIEU_TINH_TIEN")
+        {
+            var Ma_so_Ban = Request["Ma_so_Ban"];
+
+            XL_PHIEU_TINH_TIEN Phieu_tinh_tien = Json.Decode<XL_PHIEU_TINH_TIEN>(Chuoi_Nhan);
+            XL_Y_KIEN Y_kien = null;
+
+            if (Request["Noi_dung_Gop_y"] != null)
+            {
+                Y_kien = new XL_Y_KIEN()
+                {
+                    Danh_gia_Phuc_vu = Request["Danh_gia_Phuc_vu"],
+                    Danh_gia_Mon_an = Request["Danh_gia_Mon_an"],
+                    Noi_dung = Request["Noi_dung_Gop_y"]
+                };
+            }
+
+            var Kq = Du_lieu.Ghi_Phieu_Tinh_tien(Phieu_tinh_tien, Ma_so_Ban, Y_kien);
+            Chuoi_Kq = Kq;
+        }
+        else if (Ma_so_Xu_ly == "GHI_CAP_NHAP_TRANG_THAI_BAN")
+        {
+            var Ma_so_Ban = Request["Ma_so_Ban"];
+            var Tinh_trang = Request["Trang_thai"];
+            var Kq = Du_lieu.Ghi_Cap_nhap_Trang_thai_Ban(Ma_so_Ban, Tinh_trang);
+            Chuoi_Kq = Kq;
+        }
+        else if(Ma_so_Xu_ly == "GHI_CAP_NHAP_TRANG_THAI_MON_AN")
+        {
+            var Ma_so_Mon_an = Request["Ma_so_Mon_an"];
+            var Ma_so_Goi_mon = Request["Ma_so_Goi_mon"];
+            var Trang_thai = Request["Trang_thai"];
+            var Kq = Du_lieu.Ghi_Sua_Trang_Thai_Goi_Mon(Ma_so_Mon_an, Ma_so_Goi_mon, Trang_thai);
+            Chuoi_Kq = Kq;
+        }
+        else if(Ma_so_Xu_ly == "GHI_GOI_MON_MOI")
+        {
+            var Ma_so_Mon_an = Request["Ma_so_Mon_an"];
+            XL_GOI_MON Goi_mon = JsonConvert.DeserializeObject<XL_GOI_MON>(Chuoi_Nhan);
+            var Kq = Du_lieu.Ghi_Goi_mon_moi(Ma_so_Mon_an, Goi_mon);
+            Chuoi_Kq = Kq;
+        }
+    }
+
+    Response.ContentType = "text/json";
+    Response.Write(Chuoi_Kq);
+}

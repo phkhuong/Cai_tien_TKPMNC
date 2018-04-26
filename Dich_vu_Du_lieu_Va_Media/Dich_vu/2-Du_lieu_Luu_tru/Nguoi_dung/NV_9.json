@@ -1,0 +1,11 @@
+{
+  "Ho_ten": "Trần Văn C",
+  "Ma_so": "NV_9",
+  "Ten_Dang_nhap": "QL_1",
+  "Mat_khau": "QL_1",
+  "Nhom_Nguoi_dung": {
+    "Ten": "Quản lý nhà hàng",
+    "Ma_so": "QUAN_LY_NHA_HANG",
+    "Dia_chi_Dang_nhap": "http://localhost:52077/1-Man_hinh_Giao_dien/MH_Dang_nhap.cshtml"
+  }
+}

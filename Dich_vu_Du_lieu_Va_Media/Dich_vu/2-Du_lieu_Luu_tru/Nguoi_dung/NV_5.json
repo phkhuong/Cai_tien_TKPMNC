@@ -1,0 +1,27 @@
+{
+  "Ho_ten": "Trần Trí P",
+  "Ma_so": "NV_5",
+  "Ten_Dang_nhap": "PV_5",
+  "Mat_khau": "PV_5",
+  "Nhom_Nguoi_dung": {
+    "Ten": "Nhân viên phục vụ",
+    "Ma_so": "NHAN_VIEN_PHUC_VU",
+    "Dia_chi_Dang_nhap": "http://localhost:52057/1-Man_hinh_Giao_dien/MH_Dang_nhap.cshtml"
+  },
+  "Danh_sach_Ban": [
+    {
+      "Ten": "Bàn số 9",
+      "Ma_so": "BAN_09",
+      "Trang_thai": "TRONG",
+      "Danh_sach_Phieu_Tinh_tien": [],
+      "Danh_sach_Y_kien": []
+    },
+    {
+      "Ten": "Bàn số 10",
+      "Ma_so": "BAN_10",
+      "Trang_thai": "TRONG",
+      "Danh_sach_Phieu_Tinh_tien": [],
+      "Danh_sach_Y_kien": []
+    }
+  ]
+}

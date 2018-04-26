@@ -1,0 +1,11 @@
+{
+  "Ma_so": "MON_AN_8",
+  "Ten": "MỰC SỮA NƯỚNG SA TẾ",
+  "Don_gia_Ban": 85000,
+  "Loai_Mon_an":{
+    "Ma_so":"MON_MUC",
+    "Ten": "Món Mực"
+  },
+  "Danh_sach_Goi_mon":[
+  ]
+}

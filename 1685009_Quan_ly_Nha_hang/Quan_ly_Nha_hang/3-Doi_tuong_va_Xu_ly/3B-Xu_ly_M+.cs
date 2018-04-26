@@ -16,11 +16,11 @@ public partial class XL_UNG_DUNG
     XL_DU_LIEU Du_lieu_Ung_dung = null;
     List<XL_NGUOI_DUNG> Danh_sach_Nguoi_dung = new List<XL_NGUOI_DUNG>();
 
-    
     public static XL_UNG_DUNG Khoi_dong_Ung_dung()
     {
         Ung_dung = new XL_UNG_DUNG(); // Không caching 
         Ung_dung.Khoi_dong_Du_lieu_Ung_dung();
+
         return Ung_dung;
     }
 
@@ -190,17 +190,12 @@ public partial class XL_UNG_DUNG
             HttpContext.Current.Response.End();
         }
 
-        var Kq = XL_DU_LIEU.Cap_nhat_Gia_ban(Ma_so_Mon_an, Gia_moi, XL_DU_LIEU.Dia_chi_Dich_vu_Quan_ly_Nha_hang);
+        var Kq = XL_DU_LIEU.Cap_nhat_Gia_ban(Ma_so_Mon_an, Gia_moi);
 
         if(Kq == "OK")
         {
-            Kq = XL_DU_LIEU.Cap_nhat_Gia_ban(Ma_so_Mon_an, Gia_moi, XL_DU_LIEU.Dia_Chi_Phan_he_Khach_tham_quan);
-            if(Kq == "OK")
-            {
-                var Mon_an = Nguoi_dung_Dang_nhap.Danh_sach_Mon_an.FirstOrDefault(x => x.Ma_so == Ma_so_Mon_an);
-                Mon_an.Don_gia_Ban = Don_gia_Ban;
-            }
-            
+            var Mon_an = Nguoi_dung_Dang_nhap.Danh_sach_Mon_an.FirstOrDefault(x => x.Ma_so == Ma_so_Mon_an);
+            Mon_an.Don_gia_Ban = Don_gia_Ban;
         }
 
         // Khử lỗi caching
@@ -380,38 +375,6 @@ public partial class XL_UNG_DUNG
                 Nguoi_dung.Doanh_thu_Tong += Phieu_Tinh_tien.Tong_tien;
             });
         });
-    }
-
-    //-------------------------------------Chuc nang Giao tiep---------------------------------------
-    public string Ghi_Phieu_Dat_Ban_Moi(XL_PHIEU_DAT_BAN Phieu_Dat_Ban)
-    {
-        var Kq = "OK";
-        var Tong_so_Phieu_Dat_Ban = Du_lieu_Ung_dung.Danh_sach_Phieu_Dat_ban.Count();
-        Tong_so_Phieu_Dat_Ban++;
-        Phieu_Dat_Ban.Ma_so = "Phieu_Dat_ban_" + Tong_so_Phieu_Dat_Ban.ToString();
-        Du_lieu_Ung_dung.Danh_sach_Phieu_Dat_ban.Add(Phieu_Dat_Ban);
-        
-        return Kq;
-
-    }
-
-    public string Ghi_Sua_Trang_Thai_Goi_Mon(string Ma_so_Mon_an, string Ma_so_Goi_mon, string Trang_thai)
-    {
-        var Kq = "OK";
-        var Mon_an = Du_lieu_Ung_dung.Danh_sach_Mon_an.FirstOrDefault(x => x.Ma_so == Ma_so_Mon_an);
-        var Goi_mon = Mon_an.Danh_sach_Goi_mon.FirstOrDefault(x => x.Ma_so == Ma_so_Goi_mon);
-        Goi_mon.Trang_thai = Trang_thai;
-        switch (Trang_thai)
-        {
-            case "DA_NAU":
-                Goi_mon.Thoi_diem_Nau_xong = DateTime.Now;
-                break;
-            default:
-                Kq = "Không hiểu Trạng thái";
-                break;
-        }
-        
-        return Kq;
     }
 }
 
@@ -915,8 +878,7 @@ public partial class XL_UNG_DUNG
 public partial class XL_DU_LIEU
 {
     public static string Dia_chi_Dich_vu = "http://localhost:50963";
-    public static string Dia_chi_Dich_vu_Quan_ly_Nha_hang = $"{Dia_chi_Dich_vu}/1-Dich_vu_Giao_tiep/DV_Quan_ly_Nha_hang.cshtml";
-    public static string Dia_Chi_Phan_he_Khach_tham_quan = $"http://localhost:53955/1-Dich_vu_Giao_tiep/DV_Chinh.cshtml";
+    static string Dia_chi_Dich_vu_Quan_ly_Nha_hang = $"{Dia_chi_Dich_vu}/1-Dich_vu_Giao_tiep/DV_Quan_ly_Nha_hang.cshtml";
 
     public static XL_DU_LIEU Doc_Du_lieu()
     {
@@ -931,13 +893,13 @@ public partial class XL_DU_LIEU
         return Du_lieu;
     }
 
-    public static string Cap_nhat_Gia_ban(string Ma_so_Mon_an, string Gia_moi, string Dia_chi)
+    public static string Cap_nhat_Gia_ban(string Ma_so_Mon_an, string Gia_moi)
     {
         var Xu_ly = new WebClient();
         Xu_ly.Encoding = System.Text.Encoding.UTF8;
 
         var Tham_so = $"Ma_so_Xu_ly=CAP_NHAT_GIA_BAN&Ma_so_Mon_an={Ma_so_Mon_an}&Gia_moi={Gia_moi}";
-        var Dia_chi_Xu_ly = $"{Dia_chi}?{Tham_so}";
+        var Dia_chi_Xu_ly = $"{Dia_chi_Dich_vu_Quan_ly_Nha_hang}?{Tham_so}";
         var Chuoi_Kq = Xu_ly.DownloadString(Dia_chi_Xu_ly);
 
         return Chuoi_Kq;

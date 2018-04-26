@@ -1,0 +1,22 @@
+{
+	"Ten": "Bàn số 3",
+	"Ma_so": "BAN_03",
+	"Trang_thai": "TRONG",
+	"Danh_sach_Phieu_Tinh_tien": [
+	],
+  "Danh_sach_Y_kien": [
+    {
+      "Ngay": "\/Date(1520442000000)\/",
+      "Danh_gia_Phuc_vu": "HAI_LONG",
+      "Danh_gia_Mon_an": "HAI_LONG",
+      "Noi_dung": "",
+      "Nhan_vien_Phuc_vu": {
+        "Ho_ten": "Nguyễn Thị A",
+        "Ma_so": "NV_1",
+        "Ten_Dang_nhap": "PV_1",
+        "Mat_khau": "PV_1",
+        "Danh_sach_Ban": []
+      }
+    }
+  ]
+}

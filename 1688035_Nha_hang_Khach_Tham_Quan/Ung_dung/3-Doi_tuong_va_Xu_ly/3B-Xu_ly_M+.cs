@@ -113,35 +113,16 @@ public partial class XL_UNG_DUNG
     {
         var Chuoi_HTML = "";
         var Khach_Tham_quan = (XL_KHACH_THAM_QUAN)HttpContext.Current.Session["Khach_Tham_quan"];
-        var Kq_Ghi = XL_DU_LIEU.Ghi_Dat_Cho_moi(Khach_Tham_quan.Phieu_Dat_Ban, XL_DU_LIEU.Dia_chi_Dich_vu_Khach_Tham_quan);
+        var Kq_Ghi = XL_DU_LIEU.Ghi_Dat_Cho_moi(Khach_Tham_quan.Phieu_Dat_Ban);
         if (Kq_Ghi == "OK")
         {
-            Kq_Ghi = XL_DU_LIEU.Ghi_Dat_Cho_moi(Khach_Tham_quan.Phieu_Dat_Ban, XL_DU_LIEU.Dia_chi_Phan_he_Quan_ly_Nha_hang);
-            if(Kq_Ghi == "OK")
-            {
-                Chuoi_HTML += $"<div class='alert alert-success'>Bạn đã đặt chỗ thành công</div>";
-            }
-            else
-            {
-                Chuoi_HTML += $"<div class='alert alert-warning'>Đã có lỗi xảy ra, vui lòng nhập lại thông tin</div>";
-            }
+            Chuoi_HTML += $"<div class='alert alert-success'>Bạn đã đặt chỗ thành công</div>";
         }
         else
         {
             Chuoi_HTML += $"<div class='alert alert-warning'>Đã có lỗi xảy ra, vui lòng nhập lại thông tin</div>";
         }
         return Chuoi_HTML;
-    }
-
-    //-------------------------------------------Dich vu Giao tiep -------------------------------------
-    public string Cap_nhat_Gia_ban(string Ma_so_Mon_an, string Gia_moi)
-    {
-        var Kq = "";
-
-        var Mon_an = Du_lieu_Ung_dung.Danh_sach_Mon_an.FirstOrDefault(x => x.Ma_so == Ma_so_Mon_an);
-        Mon_an.Don_gia_Ban = long.Parse(Gia_moi);
-
-        return Kq;
     }
 }
 
@@ -240,7 +221,6 @@ public partial class XL_DU_LIEU
 {
     public static string Dia_chi_Dich_vu = "http://localhost:50963";
     public static string Dia_chi_Dich_vu_Khach_Tham_quan = $"{Dia_chi_Dich_vu}/1-Dich_vu_Giao_tiep/DV_Khach_Tham_quan.cshtml";
-    public static string Dia_chi_Phan_he_Quan_ly_Nha_hang = $"http://localhost:52077/1-Dich_vu_Giao_tiep/DV_Chinh.cshtml";
 
     public static XL_DU_LIEU Doc_Du_lieu()
     {
@@ -255,13 +235,13 @@ public partial class XL_DU_LIEU
         return Du_lieu;
     }
 
-    public static string Ghi_Dat_Cho_moi(XL_PHIEU_DAT_BAN Phieu_Dat_Cho, string Dia_chi)
+    public static string Ghi_Dat_Cho_moi(XL_PHIEU_DAT_BAN Phieu_Dat_Cho)
     {
         var Kq = "";
         var Xu_ly = new WebClient();
         Xu_ly.Encoding = System.Text.Encoding.UTF8;
         var Tham_so = $"Ma_so_Xu_ly=GHI_PHIEU_DAT_BAN_MOI";
-        var Dia_chi_Xu_ly = $"{Dia_chi}?{Tham_so}";
+        var Dia_chi_Xu_ly = $"{Dia_chi_Dich_vu_Khach_Tham_quan}?{Tham_so}";
         var Chuoi_JSON = Json.Encode(Phieu_Dat_Cho);
         try
         {

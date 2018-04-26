@@ -1,0 +1,29 @@
+{
+  "Ho_ten": "Trương Vô K",
+  "Ma_so": "NV_8",
+  "Ten_Dang_nhap": "DB_3",
+  "Mat_khau": "DB_3",
+  "Nhom_Nguoi_dung": {
+    "Ten": "Đầu bếp",
+    "Ma_so": "DAU_BEP",
+    "Dia_chi_Dang_nhap": "http://localhost:51433/1-Man_hinh_Giao_dien/MH_Dang_nhap.cshtml"
+  },
+  "Danh_sach_Loai_Mon_an": [
+    {
+      "Ma_so": "MON_LAU",
+      "Ten": "MÓN LẨU"
+    },
+    {
+      "Ma_so": "MON_HEO",
+      "Ten": "MÓN HEO"
+    },
+    {
+      "Ma_so": "MON_BO",
+      "Ten": "MÓN BÒ"
+    },
+    {
+      "Ma_so": "MON_XAO",
+      "Ten": "MÓN XÀO"
+    }
+  ]
+}

@@ -126,7 +126,6 @@
     <Content Include="1-Man_hinh_Giao_dien\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="1-Man_hinh_Giao_dien\MH_Chinh.cshtml" />
     <Content Include="1-Man_hinh_Giao_dien\MH_Dat_Cho.cshtml" />
-    <Content Include="1-Dich_vu_Giao_tiep\DV_Chinh.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

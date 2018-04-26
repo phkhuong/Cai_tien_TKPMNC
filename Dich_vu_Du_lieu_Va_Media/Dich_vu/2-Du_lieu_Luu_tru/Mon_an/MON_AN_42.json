@@ -1,0 +1,12 @@
+{
+    "Ma_so": "MON_AN_40",
+    "Ten": "HỦ TIẾU XÀO",
+    "Don_gia_Ban": 80000,
+    "Loai_Mon_an":{
+        "Ma_so":"MON_MI",
+        "Ten": "MÓN MÌ"
+    },
+    "Danh_sach_Goi_mon":[
+    ]
+}
+  

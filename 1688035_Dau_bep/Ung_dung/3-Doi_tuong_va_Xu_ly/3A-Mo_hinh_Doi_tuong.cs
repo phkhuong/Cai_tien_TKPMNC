@@ -64,7 +64,6 @@ public class XL_NGUOI_DUNG
     public List<XL_BAN> Danh_sach_Ban_Xem = new List<XL_BAN>();
     public List<XL_MON_AN> Danh_sach_Mon_an = new List<XL_MON_AN>();
     public List<XL_LOAI_MON_AN> Danh_sach_Loai_Mon_an = new List<XL_LOAI_MON_AN>();
-    public string Thong_bao;
 }
 
 //=========================== Doi tuong xu ly chinh =====================

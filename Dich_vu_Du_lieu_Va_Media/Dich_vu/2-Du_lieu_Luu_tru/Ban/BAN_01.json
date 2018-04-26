@@ -1,0 +1,35 @@
+{
+	"Ten": "Bàn số 1",
+	"Ma_so": "BAN_01",
+	"Trang_thai": "TRONG",
+	"Danh_sach_Phieu_Tinh_tien": [
+	],
+	"Danh_sach_Y_kien": [
+		{
+			"Ngay": "\/Date(1514707200000)\/",
+			"Danh_gia_Phuc_vu": "KHONG_HAI_LONG",
+			"Danh_gia_Mon_an": "HAI_LONG",
+			"Noi_dung": "Chờ lâu",
+			"Nhan_vien_Phuc_vu": {
+				"Ho_ten": "Nguyễn Thị A",
+				"Ma_so": "NV_1",
+				"Ten_Dang_nhap": "PV_1",
+				"Mat_khau": "PV_1",
+				"Danh_sach_Ban":[]
+			}
+		},
+		{
+			"Ngay": "\/Date(1514782672000)\/",
+			"Danh_gia_Phuc_vu": "HAI_LONG",
+			"Danh_gia_Mon_an": "HAI_LONG",
+			"Noi_dung": "",
+			"Nhan_vien_Phuc_vu": {
+				"Ho_ten": "Nguyễn Thị A",
+				"Ma_so": "NV_1",
+				"Ten_Dang_nhap": "PV_1",
+				"Mat_khau": "PV_1",
+				"Danh_sach_Ban":[]
+			}
+		}
+	]
+}

@@ -1,0 +1,33 @@
+{
+  "Ho_ten": "Lê Văn B",
+  "Ma_so": "NV_6",
+  "Ten_Dang_nhap": "DB_1",
+  "Mat_khau": "DB_1",
+  "Nhom_Nguoi_dung": {
+    "Ten": "Đầu bếp",
+    "Ma_so": "DAU_BEP",
+    "Dia_chi_Dang_nhap": "http://localhost:51433/1-Man_hinh_Giao_dien/MH_Dang_nhap.cshtml"
+  },
+  "Danh_sach_Loai_Mon_an": [
+    {
+      "Ma_so": "MON_KHAI_VI",
+      "Ten": "MÓN KHAI VỊ"
+    },
+    {
+      "Ma_so": "MON_TOM",
+      "Ten": "MÓN TÔM"
+    },
+    {
+      "Ma_so": "MON_MUC",
+      "Ten": "MÓN MỰC"
+    },
+    {
+      "Ma_so": "MON_OC",
+      "Ten": "MÓN ỐC"
+    },
+    {
+      "Ma_so": "MON_CHAO",
+      "Ten": "MÓN CHÁO"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "Ho_ten": "Phạm Hồng Thái E",
+  "Ma_so": "NV_3",
+  "Ten_Dang_nhap": "PV_3",
+  "Mat_khau": "PV_3",
+  "Nhom_Nguoi_dung": {
+    "Ten": "Nhân viên phục vụ",
+    "Ma_so": "NHAN_VIEN_PHUC_VU",
+    "Dia_chi_Dang_nhap": "http://localhost:52057/1-Man_hinh_Giao_dien/MH_Dang_nhap.cshtml"
+  },
+  "Danh_sach_Ban": [
+    {
+      "Ten": "Bàn số 5",
+      "Ma_so": "BAN_05",
+      "Trang_thai": "TRONG",
+      "Danh_sach_Phieu_Tinh_tien": [],
+      "Danh_sach_Y_kien": []
+    },
+    {
+      "Ten": "Bàn số 6",
+      "Ma_so": "BAN_06",
+      "Trang_thai": "TRONG",
+      "Danh_sach_Phieu_Tinh_tien": [],
+      "Danh_sach_Y_kien": []
+    }
+  ]
+}

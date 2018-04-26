@@ -1,0 +1,12 @@
+{
+    "Ma_so": "MON_AN_1",
+    "Ten": "GỎI HẢI SẢN",
+    "Don_gia_Ban": 85000,
+    "Loai_Mon_an": {
+        "Ten": "Món Khai Vị",
+        "Ma_so": "MON_KHAI_VI"
+    },
+    "Danh_sach_Goi_mon": [
+    ],
+    "Doanh_thu": 0
+}

@@ -228,13 +228,14 @@ public partial class XL_UNG_DUNG
             Dat_mon.Trang_thai = "CHO_NAU";
             Dat_mon.Ma_so = "GM_" + DateTime.Now.Ticks;
 
-            Mon_an_Chon.Danh_sach_Goi_mon.Add(Dat_mon);
-            var kq = XL_DU_LIEU.Ghi_Mon_an(Mon_an_Chon);
-
+            
+            //var kq = XL_DU_LIEU.Ghi_Mon_an(Mon_an_Chon);
+            var kq = XL_DU_LIEU.Ghi_Goi_mon_Moi(Dat_mon, Mon_an_Chon);
             // Cập nhật dữ liệu online
             if (kq == "OK")
             {
                 //var Mon_an = Nguoi_dung_Dang_nhap.Danh_sach_Mon_an.FirstOrDefault(x => x.Ma_so == Mon_an_Chon.Ma_so);
+                Mon_an_Chon.Danh_sach_Goi_mon.Add(Dat_mon);
                 Dat_mon.Mon_an = new XL_MON_AN()
                 {
                     Ma_so = Mon_an_Chon.Ma_so,
@@ -309,16 +310,19 @@ public partial class XL_UNG_DUNG
 
         // Xử lý ghi
         var Ban = Nguoi_dung_Dang_nhap.Danh_sach_Ban.FirstOrDefault(x => x.Ma_so == Ma_so_Ban);
-        Ban.Trang_thai = "CO_KHACH";
-        var Kq = XL_DU_LIEU.Ghi_Ban(Ban);
-
+        
+        //var Kq = XL_DU_LIEU.Ghi_Ban(Ban);
+        var Kq = XL_DU_LIEU.Ghi_Cap_nhap_Tinh_trang_Ban(Ban, "CO_KHACH");
         if (Kq != "OK")
         {
             Ban.Trang_thai = "TRONG";
             HttpContext.Current.Response.Write("Lỗi hệ thống! Vui lòng thử lại!");
             HttpContext.Current.Response.End();
         }
-
+        else
+        {
+            Ban.Trang_thai = "CO_KHACH";
+        }
         // Khử lỗi caching
         Nguoi_dung_Dang_nhap.Danh_sach_Ban_Xem = Tra_cuu_Ban(Chuoi_Tra_cuu_Ban(), Nguoi_dung_Dang_nhap.Danh_sach_Ban);
 
@@ -334,14 +338,18 @@ public partial class XL_UNG_DUNG
         // Xử lý ghi
         var Mon_an = Nguoi_dung_Dang_nhap.Danh_sach_Mon_an.FirstOrDefault(x => x.Danh_sach_Goi_mon.Any(y => y.Ma_so == Ma_so_Goi_mon));
         var Goi_mon_Phuc_vu = Mon_an.Danh_sach_Goi_mon.FirstOrDefault(x => x.Ma_so == Ma_so_Goi_mon);
-        Goi_mon_Phuc_vu.Trang_thai = "DA_PHUC_VU";
-        Goi_mon_Phuc_vu.Thoi_diem_Phuc_vu = DateTime.Now;
-        var Kq = XL_DU_LIEU.Ghi_Mon_an(Mon_an);
-
+        
+        //var Kq = XL_DU_LIEU.Ghi_Mon_an(Mon_an);
+        var Kq = XL_DU_LIEU.Ghi_Cap_nhap_Trang_thai_Mon_an(Goi_mon_Phuc_vu.Ban.Ma_so, Mon_an.Ma_so, Goi_mon_Phuc_vu.Ma_so, "DA_PHUC_VU");
         if (Kq != "OK")
         {
             HttpContext.Current.Response.Write("Lỗi hệ thống! Vui lòng thử lại!");
             HttpContext.Current.Response.End();
+        }
+        else
+        {
+            Goi_mon_Phuc_vu.Trang_thai = "DA_PHUC_VU";
+            Goi_mon_Phuc_vu.Thoi_diem_Phuc_vu = DateTime.Now;
         }
 
         // Khử lỗi caching
@@ -359,16 +367,19 @@ public partial class XL_UNG_DUNG
         // Xử lý ghi
         var Mon_an = Nguoi_dung_Dang_nhap.Danh_sach_Mon_an.FirstOrDefault(x => x.Danh_sach_Goi_mon.Any(y => y.Ma_so == Ma_so_Goi_mon));
         var Goi_mon_Huy = Mon_an.Danh_sach_Goi_mon.FirstOrDefault(x => x.Ma_so == Ma_so_Goi_mon);
-        Goi_mon_Huy.Trang_thai = "HUY";
-        Goi_mon_Huy.Thoi_diem_Huy = DateTime.Now;
-        var Kq = XL_DU_LIEU.Ghi_Mon_an(Mon_an);
-
+        
+        //var Kq = XL_DU_LIEU.Ghi_Mon_an(Mon_an);
+        var Kq = XL_DU_LIEU.Ghi_Cap_nhap_Trang_thai_Mon_an(Goi_mon_Huy.Ban.Ma_so, Mon_an.Ma_so, Ma_so_Goi_mon, "HUY");
         if(Kq != "OK")
         {
             HttpContext.Current.Response.Write("Lỗi hệ thống! Vui lòng thử lại!");
             HttpContext.Current.Response.End();
         }
-
+        else
+        {
+            Goi_mon_Huy.Trang_thai = "HUY";
+            Goi_mon_Huy.Thoi_diem_Huy = DateTime.Now;
+        }
         // Khử lỗi caching
         Nguoi_dung_Dang_nhap.Danh_sach_Ban_Xem = Tra_cuu_Ban(Chuoi_Tra_cuu_Ban(), Nguoi_dung_Dang_nhap.Danh_sach_Ban);
 
@@ -945,15 +956,52 @@ public partial class XL_DU_LIEU
         return Ket_qua;
     }
 
-    public static string Ghi_Cap_nhan_Trang_thai_Ban_Phan_he(XL_BAN Ban, string Trang_thai, string Dia_chi)
+    public static string Ghi_Cap_nhap_Tinh_trang_Ban(XL_BAN Ban, string Trang_thai)
     {
         var Xu_ly = new WebClient();
         Xu_ly.Encoding = System.Text.Encoding.UTF8;
 
-        var Tham_so = $"Ma_so_Xu_ly=CAP_NHAT_TRANG_THAI_BAN&Ma_so_BAN={Ban.Ma_so}&Trang_thai={Trang_thai}";
-        var Dia_chi_Xu_ly = $"{Dia_chi}?{Tham_so}";
-        var Chuoi_Kq = Xu_ly.DownloadString(Dia_chi_Xu_ly);
+        var Tham_so = $"Ma_so_Xu_ly=GHI_CAP_NHAP_TRANG_THAI_BAN&Ma_so_Ban={Ban.Ma_so}&Trang_thai={Trang_thai}";
+        var Dia_chi_Xu_ly = $"{Dia_chi_Dich_vu_Nhan_vien_Phuc_vu}?{Tham_so}";
+        var Kq = Xu_ly.DownloadString(Dia_chi_Xu_ly);
 
-        return Chuoi_Kq;
+        return Kq;
+    }
+
+    public static string Ghi_Cap_nhap_Trang_thai_Mon_an(string Ma_so_Ban, string Ma_so_Mon_an, string Ma_so_Goi_mon, string Trang_thai)
+    {
+        var Kq = "";
+        var Xu_ly = new WebClient();
+        Xu_ly.Encoding = System.Text.Encoding.UTF8;
+        var Tham_so = $"Ma_so_Xu_ly=GHI_CAP_NHAP_TRANG_THAI_MON_AN&Ma_so_Mon_an={Ma_so_Mon_an}&Ma_so_Goi_mon={Ma_so_Goi_mon}&Trang_thai={Trang_thai}";
+        var Dia_chi_Xu_ly = $"{Dia_chi_Dich_vu_Nhan_vien_Phuc_vu}?{Tham_so}";
+        try
+        {
+            Kq = Xu_ly.DownloadString(Dia_chi_Xu_ly);
+        }
+        catch (Exception Loi)
+        {
+            Kq = Loi.Message;
+        }
+        if (Kq == "OK\r\n")
+        {
+            //var Ban = Nguoi_dung_Dang_nhap.Danh_sach_Ban.FirstOrDefault(x => x.Ma_so == Ma_so_Ban);
+            //var Mon_an = Ban.Danh_sach_Mon_an_Cho_nau.FirstOrDefault(x => x.Ma_so == Ma_so_Mon_an);
+            //var Goi_mon_Chon = Mon_an.Danh_sach_Goi_mon.FirstOrDefault(x => x.Ma_so == Ma_so_Goi_mon);
+            //Goi_mon_Chon.Trang_thai = "DA_NAU";
+        }
+        return Kq;
+    }
+
+    public static string Ghi_Goi_mon_Moi(XL_GOI_MON Goi_mon, XL_MON_AN Mon_an)
+    {
+        var Xu_ly = new WebClient();
+        Xu_ly.Encoding = System.Text.Encoding.UTF8;
+
+        var Tham_so = $"Ma_so_Xu_ly=GHI_GOI_MON_MOI&Ma_so_Mon_an={Mon_an.Ma_so}";
+        var Dia_chi_Xu_ly = $"{Dia_chi_Dich_vu_Nhan_vien_Phuc_vu}?{Tham_so}";
+        var Ket_qua = Xu_ly.UploadString(Dia_chi_Xu_ly, JsonConvert.SerializeObject(Goi_mon));
+
+        return Ket_qua;
     }
 }

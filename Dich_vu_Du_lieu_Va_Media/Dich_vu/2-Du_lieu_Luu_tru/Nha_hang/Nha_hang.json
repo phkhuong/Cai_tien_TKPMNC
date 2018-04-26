@@ -1,0 +1,209 @@
+{
+  "Ten": "NinjaCoders",
+  "Ma_so": "NJC",
+  "Dien_thoai": "84-28555722",
+  "Dia_chi": "112 Nguyễn văn Cừ,Q.5",
+  "Mail": "NinjaCoders@gmail.com",
+  "Danh_sach_Loai_Mon_an":[
+    {
+      "Ma_so":"MON_KHAI_VI",
+      "Ten": "MÓN KHAI VỊ"
+    },
+    {
+      "Ma_so":"MON_TOM",
+      "Ten": "MÓN TÔM"
+    },
+    {
+      "Ma_so":"MON_MUC",
+      "Ten": "MÓN MỰC"
+    },
+    {
+      "Ma_so":"MON_OC",
+      "Ten": "MÓN ỐC"
+    },
+    {
+      "Ma_so":"MON_CHAO",
+      "Ten": "MÓN CHÁO"
+    },
+    {
+      "Ma_so":"MON_COM",
+      "Ten": "MÓN CƠM"
+    },
+    {
+      "Ma_so":"MON_MIEN",
+      "Ten": "MÓN MIẾN"
+    },
+    {
+      "Ma_so":"MON_MI",
+      "Ten": "MÓN MÌ"
+    },
+    {
+      "Ma_so":"MON_GA",
+      "Ten": "MÓN GÀ"
+    },
+    {
+      "Ma_so":"MON_CA",
+      "Ten": "MÓN CÁ"
+    },
+    {
+      "Ma_so":"MON_LAU",
+      "Ten": "MÓN LẨU"
+    },
+    {
+      "Ma_so":"MON_HEO",
+      "Ten": "MÓN HEO"
+    },
+    {
+      "Ma_so":"MON_BO",
+      "Ten": "MÓN BÒ"
+    },
+    {
+      "Ma_so":"MON_XAO",
+      "Ten": "MÓN XÀO"
+    },
+    {
+      "Ma_so":"NUOC_GIAI_KHAT",
+      "Ten": "NƯỚC GIẢI KHÁT"
+    }
+  ],
+  "Danh_sach_Nhan_vien_Phuc_vu": [
+    {
+      "Ho_ten": "Nguyễn Thị A",
+      "Ma_so": "PV_1",
+      "Ten_Dang_nhap": "PV_1",
+      "Mat_khau": "PV_1",
+      "Danh_sach_Ban":[
+        {
+	        "Ten": "Bàn số 1",
+	        "Ma_so": "BAN_1",
+	        "Trang_thai": "TRONG",
+	        "Danh_sach_Phieu_Tinh_tien":[],
+	        "Danh_sach_Y_kien":[]
+        },
+        {
+       		"Ten": "Bàn số 2",
+        	"Ma_so": "BAN_2",
+         	"Trang_thai": "TRONG",
+	        "Danh_sach_Phieu_Tinh_tien":[],
+	        "Danh_sach_Y_kien":[]
+        }
+      ]
+    },
+    {
+      "Ho_ten": "Nguyễn Văn D",
+      "Ma_so": "PV_2",
+      "Ten_Dang_nhap": "PV_2",
+      "Mat_khau": "PV_2",
+      "Danh_sach_Ban": [
+        {
+	        "Ten": "Bàn số 3",
+	        "Ma_so": "BAN_3",
+	        "Trang_thai": "TRONG",
+	        "Danh_sach_Phieu_Tinh_tien":[],
+	        "Danh_sach_Y_kien":[]
+        },
+        {
+	        "Ten": "Bàn số 4",
+	        "Ma_so": "BAN_4",
+	        "Trang_thai": "TRONG",
+	        "Danh_sach_Phieu_Tinh_tien":[],
+	        "Danh_sach_Y_kien":[]
+        }
+      ]
+    },
+    {
+      "Ho_ten": "Phạm Hồng Thái E",
+      "Ma_so": "PV_3",
+      "Ten_Dang_nhap": "PV_3",
+      "Mat_khau": "PV_3",
+      "Danh_sach_Ban": [
+        {
+	        "Ten": "Bàn số 5",
+	        "Ma_so": "BAN_5",
+	        "Trang_thai": "TRONG",
+	        "Danh_sach_Phieu_Tinh_tien":[],
+	        "Danh_sach_Y_kien":[]
+        },
+        {
+	        "Ten": "Bàn số 6",
+	        "Ma_so": "BAN_6",
+	        "Trang_thai": "TRONG",
+	        "Danh_sach_Phieu_Tinh_tien":[],
+	        "Danh_sach_Y_kien":[]
+        }
+      ]
+    },
+    {
+      "Ho_ten": "Lê Nguyễn T",
+      "Ma_so": "PV_4",
+      "Ten_Dang_nhap": "PV_4",
+      "Mat_khau": "PV_4",
+      "Danh_sach_Ban":[
+        {
+	        "Ten": "Bàn số 7",
+	        "Ma_so": "BAN_7",
+	        "Trang_thai": "TRONG",
+	        "Danh_sach_Phieu_Tinh_tien":[],
+	        "Danh_sach_Y_kien":[]
+        },
+        {
+	        "Ten": "Bàn số 8",
+	        "Ma_so": "BAN_8",
+	        "Trang_thai": "TRONG",
+	        "Danh_sach_Phieu_Tinh_tien":[],
+	        "Danh_sach_Y_kien":[]
+        }
+      ]
+    },
+    {
+      "Ho_ten": "Trần Trí P",
+      "Ma_so": "PV_5",
+      "Ten_Dang_nhap": "PV_5",
+      "Mat_khau": "PV_5",
+      "Danh_sach_Ban": [
+        {
+	        "Ten": "Bàn số 9",
+	        "Ma_so": "BAN_9",
+	        "Trang_thai": "TRONG",
+	        "Danh_sach_Phieu_Tinh_tien":[],
+	        "Danh_sach_Y_kien":[]
+        },
+        {
+	        "Ten": "Bàn số 10",
+	        "Ma_so": "BAN_10",
+	        "Trang_thai": "TRONG",
+	        "Danh_sach_Phieu_Tinh_tien":[],
+	        "Danh_sach_Y_kien":[]
+        }
+      ]
+    }
+  ],
+  "Danh_sach_Dau_bep": [
+    {
+      "Ho_ten": "Lê Văn B",
+      "Ma_so": "DB_1",
+      "Ten_Dang_nhap": "DB_1",
+      "Mat_khau": "DB_1"
+    },
+    {
+      "Ho_ten": "Lệnh Hồ X",
+      "Ma_so": "DB_2",
+      "Ten_Dang_nhap": "DB_1",
+      "Mat_khau": "DB_2"
+    },
+    {
+      "Ho_ten": "Trương Vô K",
+      "Ma_so": "DB_3",
+      "Ten_Dang_nhap": "DB_1",
+      "Mat_khau": "DB_3"
+    }
+  ],
+  "Danh_sach_Quan_ly": [
+    {
+      "Ho_ten": "Trần Văn C",
+      "Ma_so": "QL_1",
+      "Ten_Dang_nhap": "QL_1",
+      "Mat_khau": "QL_1"
+    }
+  ]
+}

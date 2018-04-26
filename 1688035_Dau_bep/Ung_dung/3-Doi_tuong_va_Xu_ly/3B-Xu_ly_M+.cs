@@ -96,27 +96,7 @@ public partial class XL_UNG_DUNG
     public string Check_Da_Nau(string Ma_so_Ban,string Ma_so_Mon_an, string Ma_so_Goi_mon)
     {
         var Nguoi_dung_Dang_nhap = (XL_NGUOI_DUNG)HttpContext.Current.Session["Nguoi_dung_Dang_nhap"];
-        var Kq_Ghi = XL_DU_LIEU.Ghi_Trang_thai_Da_Nau(Ma_so_Ban, Ma_so_Mon_an, Ma_so_Goi_mon, Nguoi_dung_Dang_nhap, XL_DU_LIEU.Dia_chi_Dich_vu_Nhan_vien_Phuc_vu);
-        if (Kq_Ghi == "OK\r\n")
-        {
-            Kq_Ghi = XL_DU_LIEU.Ghi_Trang_thai_Da_Nau(Ma_so_Ban, Ma_so_Mon_an, Ma_so_Goi_mon, Nguoi_dung_Dang_nhap, XL_DU_LIEU.Dia_chi_Phan_he_Quan_ly_Nhan_hang);
-            if(Kq_Ghi == "OK")
-            {
-                var Ban = Nguoi_dung_Dang_nhap.Danh_sach_Ban.FirstOrDefault(x => x.Ma_so == Ma_so_Ban);
-                var Mon_an = Ban.Danh_sach_Mon_an_Cho_nau.FirstOrDefault(x => x.Ma_so == Ma_so_Mon_an);
-                var Goi_mon_Chon = Mon_an.Danh_sach_Goi_mon.FirstOrDefault(x => x.Ma_so == Ma_so_Goi_mon);
-                Goi_mon_Chon.Trang_thai = "DA_NAU";
-            }
-            else
-            {
-                Nguoi_dung_Dang_nhap.Thong_bao = "<div class='alert alert-danger' role='alert'>Xảy ra lỗi, tác vụ không thể thực hiện</div>";
-            }
-            
-        }
-        else
-        {
-            Nguoi_dung_Dang_nhap.Thong_bao = "<div class='alert alert-danger' role='alert'>Xảy ra lỗi, tác vụ không thể thực hiện</div>";
-        }
+        var Kq_Ghi = XL_DU_LIEU.Ghi_Trang_thai_Da_Nau(Ma_so_Ban, Ma_so_Mon_an, Ma_so_Goi_mon, Nguoi_dung_Dang_nhap);
         var Chuoi_HTML = Tao_Chuoi_HTML_Xem(Nguoi_dung_Dang_nhap);
         return Chuoi_HTML;
     }
@@ -124,10 +104,9 @@ public partial class XL_UNG_DUNG
     public string Tao_Chuoi_HTML_Xem(XL_NGUOI_DUNG Nguoi_dung_Dang_nhap)
     {
         var Chuoi_HTML = $"<div>" +
-                $"{Nguoi_dung_Dang_nhap.Thong_bao}" +
+                //$"{ Tao_Chuoi_HTML_Nguoi_dung_Dang_nhap(Nguoi_dung_Dang_nhap)}" +
                 $"{ Tao_Chuoi_HTML_Danh_sach_Cho_nau(Nguoi_dung_Dang_nhap.Danh_sach_Ban_Xem,Nguoi_dung_Dang_nhap.Danh_sach_Mon_an)}" +
             $"</div>";
-        Nguoi_dung_Dang_nhap.Thong_bao = "";
         return Chuoi_HTML;
     }
 }
@@ -291,7 +270,6 @@ public partial class XL_DU_LIEU
 {
     public static string Dia_chi_Dich_vu = "http://localhost:50963";
     public static string Dia_chi_Dich_vu_Nhan_vien_Phuc_vu = $"{Dia_chi_Dich_vu}/1-Dich_vu_Giao_tiep/DV_Dau_bep.cshtml";
-    public static string Dia_chi_Phan_he_Quan_ly_Nhan_hang = $"http://localhost:52077//1-Dich_vu_Giao_tiep/DV_Chinh.cshtml";
 
     public static XL_DU_LIEU Doc_Du_lieu()
     {
@@ -306,13 +284,13 @@ public partial class XL_DU_LIEU
         return Du_lieu;
     }
 
-    public static string Ghi_Trang_thai_Da_Nau(string Ma_so_Ban, string Ma_so_Mon_an, string Ma_so_Goi_mon, XL_NGUOI_DUNG Nguoi_dung_Dang_nhap, string Dia_chi)
+    public static string Ghi_Trang_thai_Da_Nau(string Ma_so_Ban, string Ma_so_Mon_an, string Ma_so_Goi_mon, XL_NGUOI_DUNG Nguoi_dung_Dang_nhap)
     {
         var Kq = "";
         var Xu_ly = new WebClient();
         Xu_ly.Encoding = System.Text.Encoding.UTF8;
         var Tham_so = $"Ma_so_Xu_ly=GHI_TRANG_THAI_DA_NAU&Ma_so_Mon_an={Ma_so_Mon_an}&Ma_so_Goi_mon={Ma_so_Goi_mon}";
-        var Dia_chi_Xu_ly = $"{Dia_chi}?{Tham_so}";
+        var Dia_chi_Xu_ly = $"{Dia_chi_Dich_vu_Nhan_vien_Phuc_vu}?{Tham_so}";
         try
         {
             Kq = Xu_ly.DownloadString(Dia_chi_Xu_ly);
@@ -321,7 +299,13 @@ public partial class XL_DU_LIEU
         {
             Kq = Loi.Message;
         }
-        
+        if (Kq == "OK\r\n")
+        {
+            var Ban = Nguoi_dung_Dang_nhap.Danh_sach_Ban.FirstOrDefault(x=>x.Ma_so == Ma_so_Ban);
+            var Mon_an = Ban.Danh_sach_Mon_an_Cho_nau.FirstOrDefault(x => x.Ma_so == Ma_so_Mon_an);
+            var Goi_mon_Chon = Mon_an.Danh_sach_Goi_mon.FirstOrDefault(x => x.Ma_so == Ma_so_Goi_mon);
+            Goi_mon_Chon.Trang_thai = "DA_NAU";
+        }
         return Kq;
     }
 }
