@@ -75,10 +75,6 @@ public partial class XL_DU_LIEU
             Mon_an_cua_Phan_he.Ma_so = Mon_an.Ma_so;
             Mon_an_cua_Phan_he.Loai_Mon_an = Mon_an.Loai_Mon_an;
 
-            //**Hiện tại chưa dùng vì cần lấy dữ liệu ngày cũ để làm ví dụ biễu diễn
-
-            //Mon_an_cua_Phan_he.Danh_sach_Goi_mon = Lay_Du_lieu_Goi_mon_trong_ngay(Mon_an);
-
             Mon_an_cua_Phan_he.Danh_sach_Goi_mon = Mon_an.Danh_sach_Goi_mon;
             //============================================================================//
 
